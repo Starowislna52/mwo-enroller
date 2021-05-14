@@ -82,10 +82,15 @@ public class MeetingRestController {
 	
 	@PostMapping("/{meeting}/{participant}")
 	public ResponseEntity<?> addUserToMeeting(@PathVariable(value = "meeting") Long meetingId, 
-			@PathVariable(value = "participant") String participant, @RequestBody Meeting meeting){
+			@PathVariable(value = "participant") String participant){
 	
 		Meeting meetingData = meetingService.findById(meetingId);
-		meetingData.addParticipant(participantService.findByLogin(participant));
+		Participant participantData = participantService.findByLogin(participant);
+		
+		if (meetingData == null || participantData == null) { 
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		} 
+		meetingData.addParticipant(participantData);
 		meetingService.add(meetingData);		
 		return new ResponseEntity<Meeting>(HttpStatus.OK);
 	}
