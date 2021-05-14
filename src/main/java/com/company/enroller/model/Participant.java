@@ -1,8 +1,11 @@
 package com.company.enroller.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +17,10 @@ public class Participant {
 
 	@Column
 	private String password;
+	
+	
+	@ManyToMany(mappedBy="participants")
+	private Set<Meeting> meetings;
 
 	public String getLogin() {
 		return login;
@@ -30,4 +37,14 @@ public class Participant {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Set<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(Set<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+	
+	
 }
