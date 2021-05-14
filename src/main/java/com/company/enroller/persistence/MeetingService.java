@@ -24,6 +24,7 @@ public class MeetingService {
 		Query query = connector.getSession().createQuery(hql);	
 		return query.list();
 		
+		
 	}
 
     public Meeting findById(Long id) {
